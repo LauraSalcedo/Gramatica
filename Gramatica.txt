@@ -1,0 +1,86 @@
+file: definition operations combined
+
+//DEFINICIONES
+definition: def_elements def_oper def_func def_constants
+
+def_elements: TOK_ELEMENT TOK_IGUAL lst_elements
+
+lst_elements: element other_elements
+
+element: TOK_LST
+		| TOK_EXP
+
+other_elements: TOK_COMA element other_elements 
+				| //Vacío
+
+def_oper: TOK_OPERATION TOK_IGUAL lst_operations
+
+lst_operations: operation_name other_operations_name
+
+other_operations_name: TOK_COMA operation_name other_operations_name
+					|//Vacío
+
+operation_name: TOK_OPERACION_NAME
+
+def_func:	TOK_FUNC TOK_IGUAL lst_functions
+
+lst_functions: function_name other_functions
+
+other_functions: TOK_COMA function_name others_operations
+					|//Vacío
+
+function_name: TOK_PERMUTE
+				| TOK_SUBLIST
+				| TOK_CONCAT
+				| TOK_DETECT
+				| TOK_IS_FORMAT
+
+//OPERACIONES
+
+operations: operation other_operations
+
+other_operations: operation other_operations
+					| //Vacío
+
+operation: name nParams param_type rules
+
+name: TOK_NAME TOK_IGUAL operation_name
+
+nParams: TOK_NPARAMS TOK_IGUAL TOK_CONSTANTE
+
+param_type: TOK_PARAM_TYPE TOK_IGUAL element
+
+rules: defined_rules undefined_rules
+
+defined_rules: rule other_rules
+
+other_rules: rule other_rules
+			| //Vacío
+
+rule: TOK_CONMUTATIVE
+		| TOK_ASOCIATIVE
+		| TOK_IDENTITY
+		| TOK_ZERO
+		| TOK_DISTRIBUTIVE
+		| TOK_COMMON_FACTOR
+
+undefined_rules: new_rule other_new_rules
+
+other_new_rules: new_rule other_new_rules
+				| //Vacío
+
+new_rules: rule_name TOK_IGUAL def_rule
+
+rule_name: TOK_RULE_NAME
+
+def_rule: //¿¿??
+
+//COMBINADAS
+combined: combined_oper other_comb_oper
+
+other_comb_oper: combined_oper other_comb_oper
+					| //Vacío
+
+combined_oper: combined_oper_name rules
+
+combined_oper_name: TOK_COMBINES TOK_IGUAL lst_operations
