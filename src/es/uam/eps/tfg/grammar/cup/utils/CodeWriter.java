@@ -6,4 +6,8 @@ public final class CodeWriter {
 		throw new InstantiationError();
 	}
 
+	public static void imprime() {
+		System.out.println("Prueba");
+	}
+
 }

@@ -144,7 +144,6 @@ public class Parser extends java_cup.runtime.lr_parser {
 //@@CUPDBG0
 
   protected LexerGenerator LexerGenerator;
-  public CodeWriter codeWriter;
 
 
 /** Cup generated class to encapsulate user supplied action code.*/
