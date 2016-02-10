@@ -6,7 +6,8 @@
 package cup.example;
 
 import java_cup.runtime.*;
-import cup.example.Pepito;
+import cup.example.LexerGenerator;
+import es.uam.eps.tfg.grammar.cup.utils.CodeWriter;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -128,7 +129,7 @@ public class Parser extends java_cup.runtime.lr_parser {
   } catch (IOException e) {
     e.printStackTrace();
   } 
-  Pepito = new Pepito(f,fis);
+  LexerGenerator = new LexerGenerator(f,fis);
 
     }
 
@@ -137,12 +138,13 @@ public class Parser extends java_cup.runtime.lr_parser {
     throws java.lang.Exception
     {
 //@@CUPDBG2
- return Pepito.next_token(); 
+ return LexerGenerator.next_token(); 
     }
 
 //@@CUPDBG0
 
-  protected Pepito Pepito;
+  protected LexerGenerator LexerGenerator;
+  public CodeWriter codeWriter;
 
 
 /** Cup generated class to encapsulate user supplied action code.*/

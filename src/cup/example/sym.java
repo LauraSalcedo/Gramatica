@@ -11,18 +11,17 @@ public interface sym {
   public static final int TIMES = 6;
   public static final int CONMUTATIVE = 10;
   public static final int IDENTITY = 11;
-  public static final int COMBINES = 22;
+  public static final int COMBINES = 21;
   public static final int USES_FUNC = 17;
   public static final int PLUS = 3;
   public static final int RPAREN = 8;
-  public static final int EQUAL = 21;
+  public static final int EQUAL = 20;
   public static final int SEMI = 2;
-  public static final int NPARAM = 20;
-  public static final int NAME = 23;
+  public static final int NAME = 22;
   public static final int NAMEOP = 19;
   public static final int DISTRIBUTIVE = 13;
   public static final int LPAREN = 7;
-  public static final int PARAMTYPE = 24;
+  public static final int EXP = 23;
   public static final int NUMBER = 25;
   public static final int EOF = 0;
   public static final int COMMON_FACTOR = 14;
@@ -31,6 +30,7 @@ public interface sym {
   public static final int ELEMENT = 15;
   public static final int MINUS = 4;
   public static final int error = 1;
+  public static final int EQUIVALENT = 24;
   public static final int ASOCIATIVE = 9;
   public static final int ZERO = 12;
   public static final int UMINUS = 5;
@@ -55,11 +55,11 @@ public interface sym {
   "USES_FUNC",
   "USES_CONSTANTS",
   "NAMEOP",
-  "NPARAM",
   "EQUAL",
   "COMBINES",
   "NAME",
-  "PARAMTYPE",
+  "EXP",
+  "EQUIVALENT",
   "NUMBER"
   };
 }
