@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 
 %%
 
-%class Lexer
+%class Pepito
 %implements sym
 %public
 %unicode
@@ -18,11 +18,11 @@ import java.io.InputStreamReader;
 %{
 	
 
-    public Lexer(ComplexSymbolFactory sf, java.io.InputStream is){
+    public Pepito(ComplexSymbolFactory sf, java.io.InputStream is){
 		this(is);
         symbolFactory = sf;
     }
-	public Lexer(ComplexSymbolFactory sf, java.io.Reader reader){
+	public Pepito(ComplexSymbolFactory sf, java.io.Reader reader){
 		this(reader);
         symbolFactory = sf;
     }
@@ -76,6 +76,8 @@ ident = ([:jletter:] | "_" ) ([:jletterdigit:] | [:jletter:] | "_" )*
 %%  
 
 <YYINITIAL> {
+
+/*[A-Za-z][a-zA-Z]* */
 
   {Whitespace} {                              }
   ";"          { return symbolFactory.newSymbol("SEMI", SEMI); }

@@ -6,13 +6,13 @@
 package cup.example;
 
 import java_cup.runtime.*;
-import cup.example.Lexer;
+import cup.example.Pepito;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileInputStream;
 
 parser code {:
-  protected Lexer lexer;
+  protected Pepito Pepito;
 :}
 
 /* define how to connect to the scanner! */
@@ -26,9 +26,9 @@ init with {:
   } catch (IOException e) {
     e.printStackTrace();
   } 
-  lexer = new Lexer(f,fis);
+  Pepito = new Pepito(f,fis);
 :};
-scan with {: return lexer.next_token(); :};
+scan with {: return Pepito.next_token(); :};
 
 /* Terminals (tokens returned by the scanner). */
 terminal            SEMI, PLUS, MINUS, UMINUS, TIMES, LPAREN, RPAREN;
