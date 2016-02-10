@@ -92,9 +92,9 @@ ident = ([:jletter:] | "_" ) ([:jletterdigit:] | [:jletter:] | "_" )*
   nameOp		 { return symbolFactory.newSymbol ("NAMEOP", NAMEOP); }
   nParam		 { return symbolFactory.newSymbol ("NPARAM", NPARAM); }
   "="			 { return symbolFactory.newSymbol("EQUAL", EQUAL); }
-  /*paramType		 { return symbolFactory.newSymbol ("PARAMTYPE", PARAMTYPE); }*/
-  /*combines		 { return symbolFactory.newSymbol ("COMBINES", COMBINES); }*/
-  /*{Name}		 { return symbolFactory.newSymbol("NAME", NAME); }*/
+  paramType		 { return symbolFactory.newSymbol ("PARAMTYPE", PARAMTYPE); }
+  combines		 { return symbolFactory.newSymbol ("COMBINES", COMBINES); }
+  {Name}		 { return symbolFactory.newSymbol("NAME", NAME); }
   
   {Whitespace} {                              }
   ";"          { return symbolFactory.newSymbol("SEMI", SEMI); }
