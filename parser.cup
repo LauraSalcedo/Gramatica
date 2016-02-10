@@ -6,13 +6,14 @@
 package cup.example;
 
 import java_cup.runtime.*;
-import cup.example.Pepito;
+import cup.example.LexerGenerator;
+import es.uam.eps.tfg.grammar.cup.utils.CodeWriter;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileInputStream;
 
 parser code {:
-  protected Pepito Pepito;
+  protected LexerGenerator LexerGenerator;
 :}
 
 /* define how to connect to the scanner! */
@@ -26,13 +27,14 @@ init with {:
   } catch (IOException e) {
     e.printStackTrace();
   } 
-  Pepito = new Pepito(f,fis);
+  LexerGenerator = new LexerGenerator(f,fis);
 :};
-scan with {: return Pepito.next_token(); :};
+scan with {: return LexerGenerator.next_token(); :};
 
 /* Terminals (tokens returned by the scanner). */
 terminal			SEMI, PLUS, MINUS, UMINUS, TIMES, LPAREN, RPAREN, ASOCIATIVE, CONMUTATIVE, IDENTITY, 
-ZERO, DISTRIBUTIVE, COMMON_FACTOR, ELEMENT, OPERATION, USES_FUNC, USES_CONSTANTS, NAMEOP, NPARAM, EQUAL, COMBINES, NAME, PARAMTYPE;
+					ZERO, DISTRIBUTIVE, COMMON_FACTOR, ELEMENT, OPERATION, USES_FUNC, USES_CONSTANTS, 
+					NAMEOP, EQUAL, COMBINES, NAME, EXP, EQUIVALENT;
 terminal Integer    NUMBER;        // our scanner provides numbers as integers
 
 /* Non terminals */

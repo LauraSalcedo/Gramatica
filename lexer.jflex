@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 
 %%
 
-%class Pepito
+%class LexerGenerator
 %implements sym
 %public
 %unicode
@@ -18,11 +18,11 @@ import java.io.InputStreamReader;
 %{
 	
 
-    public Pepito(ComplexSymbolFactory sf, java.io.InputStream is){
+    public LexerGenerator(ComplexSymbolFactory sf, java.io.InputStream is){
 		this(is);
         symbolFactory = sf;
     }
-	public Pepito(ComplexSymbolFactory sf, java.io.Reader reader){
+	public LexerGenerator(ComplexSymbolFactory sf, java.io.Reader reader){
 		this(reader);
         symbolFactory = sf;
     }
@@ -78,7 +78,7 @@ ident = ([:jletter:] | "_" ) ([:jletterdigit:] | [:jletter:] | "_" )*
 
 <YYINITIAL> {
   
- /* {Whitespace}   {                              }*/
+  {Whitespace} {                              }
   asociative     { return symbolFactory.newSymbol ("ASOCIATIVE", ASOCIATIVE); }
   conmutative    { return symbolFactory.newSymbol ("CONMUTATIVE", CONMUTATIVE); }
   identity       { return symbolFactory.newSymbol ("IDENTITY", IDENTITY); }
@@ -86,24 +86,26 @@ ident = ([:jletter:] | "_" ) ([:jletterdigit:] | [:jletter:] | "_" )*
   distributive   { return symbolFactory.newSymbol ("DISTRIBUTIVE", DISTRIBUTIVE); }
   common_factor  { return symbolFactory.newSymbol ("COMMON_FACTOR", COMMON_FACTOR); }
   element		 { return symbolFactory.newSymbol ("ELEMENT", ELEMENT); }
+  exp			 { return symbolFactory.newSymbol ("EXP", EXP); }
   operation		 { return symbolFactory.newSymbol ("OPERATION", OPERATION); }
   uses_func		 { return symbolFactory.newSymbol ("USES_FUNC", USES_FUNC); }
   uses_constants { return symbolFactory.newSymbol ("USES_CONSTANTS", USES_CONSTANTS); }
   nameOp		 { return symbolFactory.newSymbol ("NAMEOP", NAMEOP); }
-  nParam		 { return symbolFactory.newSymbol ("NPARAM", NPARAM); }
-  "="			 { return symbolFactory.newSymbol("EQUAL", EQUAL); }
-  paramType		 { return symbolFactory.newSymbol ("PARAMTYPE", PARAMTYPE); }
   combines		 { return symbolFactory.newSymbol ("COMBINES", COMBINES); }
   {Name}		 { return symbolFactory.newSymbol("NAME", NAME); }
+  "---"			 { return symbolFactory.newSymbol ("EQUIVALENT", EQUIVALENT); }
+  "="			 { return symbolFactory.newSymbol("EQUAL", EQUAL); }
+  "("			 { return symbolFactory.newSymbol("LPAREN", LPAREN); }
+  ")"			 { return symbolFactory.newSymbol("RPAREN", RPAREN); }
+  {Newline}		 {												}
+  "#".*			 { 												}
   
-  {Whitespace} {                              }
+  
   ";"          { return symbolFactory.newSymbol("SEMI", SEMI); }
   "+"          { return symbolFactory.newSymbol("PLUS", PLUS); }
   "-"          { return symbolFactory.newSymbol("MINUS", MINUS); }
   "*"          { return symbolFactory.newSymbol("TIMES", TIMES); }
   "n"          { return symbolFactory.newSymbol("UMINUS", UMINUS); }
-  "("          { return symbolFactory.newSymbol("LPAREN", LPAREN); }
-  ")"          { return symbolFactory.newSymbol("RPAREN", RPAREN); }
   {Number}     { return symbolFactory.newSymbol("NUMBER", NUMBER, Integer.parseInt(yytext())); }
 }
 
