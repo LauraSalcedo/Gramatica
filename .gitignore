@@ -1,4 +1,4 @@
-# Directorio de salida de Maven.
+﻿# Directorio de salida de Maven.
 target/
 
 # Configuración de Eclipse.
@@ -6,6 +6,7 @@ target/
 .project
 .settings/
 .classpath
+bin/*
 
 # Configuración de Intellij IDEA
 *.iml
