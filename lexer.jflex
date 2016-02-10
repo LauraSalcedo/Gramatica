@@ -57,6 +57,7 @@ import java.io.InputStreamReader;
 Newline    = \r | \n | \r\n
 Whitespace = [ \t\f] | {Newline}
 Number     = [0-9]+
+Name	   = [A-Za-z][a-zA-Z]*
 
 /* comments */
 Comment = {TraditionalComment} | {EndOfLineComment}
@@ -76,9 +77,25 @@ ident = ([:jletter:] | "_" ) ([:jletterdigit:] | [:jletter:] | "_" )*
 %%  
 
 <YYINITIAL> {
-
-/*[A-Za-z][a-zA-Z]* */
-
+  
+ /* {Whitespace}   {                              }*/
+  asociative     { return symbolFactory.newSymbol ("ASOCIATIVE", ASOCIATIVE); }
+  conmutative    { return symbolFactory.newSymbol ("CONMUTATIVE", CONMUTATIVE); }
+  identity       { return symbolFactory.newSymbol ("IDENTITY", IDENTITY); }
+  zero		     { return symbolFactory.newSymbol ("ZERO", ZERO); }
+  distributive   { return symbolFactory.newSymbol ("DISTRIBUTIVE", DISTRIBUTIVE); }
+  common_factor  { return symbolFactory.newSymbol ("COMMON_FACTOR", COMMON_FACTOR); }
+  element		 { return symbolFactory.newSymbol ("ELEMENT", ELEMENT); }
+  operation		 { return symbolFactory.newSymbol ("OPERATION", OPERATION); }
+  uses_func		 { return symbolFactory.newSymbol ("USES_FUNC", USES_FUNC); }
+  uses_constants { return symbolFactory.newSymbol ("USES_CONSTANTS", USES_CONSTANTS); }
+  nameOp		 { return symbolFactory.newSymbol ("NAMEOP", NAMEOP); }
+  nParam		 { return symbolFactory.newSymbol ("NPARAM", NPARAM); }
+  "="			 { return symbolFactory.newSymbol("EQUAL", EQUAL); }
+  /*paramType		 { return symbolFactory.newSymbol ("PARAMTYPE", PARAMTYPE); }*/
+  /*combines		 { return symbolFactory.newSymbol ("COMBINES", COMBINES); }*/
+  /*{Name}		 { return symbolFactory.newSymbol("NAME", NAME); }*/
+  
   {Whitespace} {                              }
   ";"          { return symbolFactory.newSymbol("SEMI", SEMI); }
   "+"          { return symbolFactory.newSymbol("PLUS", PLUS); }

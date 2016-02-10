@@ -31,7 +31,8 @@ init with {:
 scan with {: return Pepito.next_token(); :};
 
 /* Terminals (tokens returned by the scanner). */
-terminal            SEMI, PLUS, MINUS, UMINUS, TIMES, LPAREN, RPAREN;
+terminal			SEMI, PLUS, MINUS, UMINUS, TIMES, LPAREN, RPAREN, ASOCIATIVE, CONMUTATIVE, IDENTITY, ZERO, DISTRIBUTIVE, COMMON_FACTOR, ELEMENT, OPERATION, USES_FUNC, USES_CONSTANTS, NAMEOP, NPARAM, EQUAL;
+/*terminal			SEMI, PLUS, MINUS, UMINUS, TIMES, LPAREN, RPAREN;*/
 terminal Integer    NUMBER;        // our scanner provides numbers as integers
 
 /* Non terminals */
