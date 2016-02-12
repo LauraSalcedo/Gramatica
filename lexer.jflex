@@ -99,6 +99,7 @@ ident = ([:jletter:] | "_" ) ([:jletterdigit:] | [:jletter:] | "_" )*
   ")"			 { return symbolFactory.newSymbol("RPAREN", RPAREN); }
   {Newline}		 {												}
   "#".*			 { 												}
+  ","			 { return symbolFactory.newSymbol ("COMMA", COMMA); }
   
   
   ";"          { return symbolFactory.newSymbol("SEMI", SEMI); }

@@ -22,7 +22,8 @@ public interface sym {
   public static final int DISTRIBUTIVE = 13;
   public static final int LPAREN = 7;
   public static final int EXP = 23;
-  public static final int NUMBER = 25;
+  public static final int COMMA = 25;
+  public static final int NUMBER = 26;
   public static final int EOF = 0;
   public static final int COMMON_FACTOR = 14;
   public static final int OPERATION = 16;
@@ -60,6 +61,7 @@ public interface sym {
   "NAME",
   "EXP",
   "EQUIVALENT",
+  "COMMA",
   "NUMBER"
   };
 }

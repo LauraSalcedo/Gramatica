@@ -34,11 +34,13 @@ scan with {: return LexerGenerator.next_token(); :};
 /* Terminals (tokens returned by the scanner). */
 terminal			SEMI, PLUS, MINUS, UMINUS, TIMES, LPAREN, RPAREN, ASOCIATIVE, CONMUTATIVE, IDENTITY, 
 					ZERO, DISTRIBUTIVE, COMMON_FACTOR, ELEMENT, OPERATION, USES_FUNC, USES_CONSTANTS, 
-					NAMEOP, EQUAL, COMBINES, NAME, EXP, EQUIVALENT;
+					NAMEOP, EQUAL, COMBINES, NAME, EXP, EQUIVALENT, COMMA;
 terminal Integer    NUMBER;        // our scanner provides numbers as integers
 
 /* Non terminals */
-non terminal            expr_list;
+non terminal            expr_list, file,definition, operations, combined, def_elements, def_oper, 
+						def_func, def_constants, lst_operations, operation_name, other_operations_name;
+						/*, lst_elements, element, other_elements*/
 non terminal Integer    expr;      // used to store evaluated subexpressions
 
 /* Precedences */
@@ -59,4 +61,30 @@ expr      ::= expr:e1 PLUS  expr:e2         {: RESULT = e1+e2;        :}
              | LPAREN expr:e RPAREN	         {: RESULT = e;           :}
              | NUMBER:n	                     {: RESULT = n;           :}
              ;
+             
+file					::=  definition operations combined;
+/*DEFINICIONES*/
+definition 				::= def_elements def_oper def_func def_constants;
+
+def_elements 			::= ELEMENT EQUAL EXP/*lst_elements*/;
+
+/*lst_elements 			::= element other_elements;
+element 				::= EXP
+other_elements			::=	COMMA element other_elements
+					|*/
+
+def_oper				::= OPERATION EQUAL lst_operations;
+
+lst_operations			::= operation_name other_operations_name;
+
+other_operations_name	::= COMMA operation_name other_operations_name
+							| /*Vacío*/;
+							
+operation_name			::= NAME;
+
+
+
+
+
+
        
