@@ -78,7 +78,8 @@ ident = ([:jletter:] | "_" ) ([:jletterdigit:] | [:jletter:] | "_" )*
 
 <YYINITIAL> {
   
-  {Whitespace} {                              }
+  {Whitespace}	 {                              }
+  {Newline}		 {												}
   asociative     { return symbolFactory.newSymbol ("ASOCIATIVE", ASOCIATIVE); }
   conmutative    { return symbolFactory.newSymbol ("CONMUTATIVE", CONMUTATIVE); }
   identity       { return symbolFactory.newSymbol ("IDENTITY", IDENTITY); }
@@ -89,15 +90,18 @@ ident = ([:jletter:] | "_" ) ([:jletterdigit:] | [:jletter:] | "_" )*
   exp			 { return symbolFactory.newSymbol ("EXP", EXP); }
   operation		 { return symbolFactory.newSymbol ("OPERATION", OPERATION); }
   uses_func		 { return symbolFactory.newSymbol ("USES_FUNC", USES_FUNC); }
+  permute		 { return symbolFactory.newSymbol ("PERMUTE", PERMUTE);}
+  sublist		 { return symbolFactory.newSymbol ("SUBLIST", SUBLIST);}
+  concat		 { return symbolFactory.newSymbol ("CONCAT", CONCAT);}
+  detect		 { return symbolFactory.newSymbol ("DETECT", DETECT);}
   uses_constants { return symbolFactory.newSymbol ("USES_CONSTANTS", USES_CONSTANTS); }
-  nameOp		 { return symbolFactory.newSymbol ("NAMEOP", NAMEOP); }
   combines		 { return symbolFactory.newSymbol ("COMBINES", COMBINES); }
+  propName		 { return symbolFactory.newSymbol ("PROP_NAME", PROP_NAME); }
   {Name}		 { return symbolFactory.newSymbol("NAME", NAME); }
   "---"			 { return symbolFactory.newSymbol ("EQUIVALENT", EQUIVALENT); }
   "="			 { return symbolFactory.newSymbol("EQUAL", EQUAL); }
   "("			 { return symbolFactory.newSymbol("LPAREN", LPAREN); }
   ")"			 { return symbolFactory.newSymbol("RPAREN", RPAREN); }
-  {Newline}		 {												}
   "#".*			 { 												}
   ","			 { return symbolFactory.newSymbol ("COMMA", COMMA); }
   

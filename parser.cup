@@ -20,7 +20,7 @@ parser code {:
 init with {:
   ComplexSymbolFactory f = new ComplexSymbolFactory();
   symbolFactory = f;
-  File file = new File("input.txt");
+  File file = new File("CAS.properties");
   FileInputStream fis = null;
   try {
     fis = new FileInputStream(file);
@@ -33,13 +33,17 @@ scan with {: return LexerGenerator.next_token(); :};
 
 /* Terminals (tokens returned by the scanner). */
 terminal			SEMI, PLUS, MINUS, UMINUS, TIMES, LPAREN, RPAREN, ASOCIATIVE, CONMUTATIVE, IDENTITY, 
-					ZERO, DISTRIBUTIVE, COMMON_FACTOR, ELEMENT, OPERATION, USES_FUNC, USES_CONSTANTS, 
-					NAMEOP, EQUAL, COMBINES, NAME, EXP, EQUIVALENT, COMMA;
+					ZERO, DISTRIBUTIVE, COMMON_FACTOR, ELEMENT, OPERATION, USES_FUNC, PERMUTE, SUBLIST, 
+					CONCAT, DETECT, USES_CONSTANTS, EQUAL, COMBINES, EXP, EQUIVALENT, COMMA, PROP_NAME, NAME;
 terminal Integer    NUMBER;        // our scanner provides numbers as integers
 
 /* Non terminals */
 non terminal            expr_list, file,definition, operations, combined, def_elements, def_oper, 
-						def_func, def_constants, lst_operations, operation_name, other_operations_name;
+						def_func, def_constants, lst_operations, operation_name, other_operations_name,
+						lst_functions, function_name, other_functions, operation, other_operations, rules,
+						defined_rules, undefined_rules, rule, other_rules, new_rule, other_new_rules, 
+						rule_name, rule_created, combined_oper, other_comb_oper, combined_oper_name,
+						constant;
 						/*, lst_elements, element, other_elements*/
 non terminal Integer    expr;      // used to store evaluated subexpressions
 
@@ -49,7 +53,7 @@ precedence left TIMES;
 precedence left UMINUS;
 
 /* The grammar rules */
-expr_list ::= expr_list expr:e SEMI         {: System.out.println(e); :}
+/*expr_list ::= expr_list expr:e SEMI         {: System.out.println(e); :}
             | expr:e SEMI                   {: System.out.println(e); :}
             ;
             
@@ -60,31 +64,109 @@ expr      ::= expr:e1 PLUS  expr:e2         {: RESULT = e1+e2;        :}
              %prec UMINUS
              | LPAREN expr:e RPAREN	         {: RESULT = e;           :}
              | NUMBER:n	                     {: RESULT = n;           :}
-             ;
+             ;*/
              
-file					::=  definition operations combined;
+file					::= definition:d operations combined {: System.out.println("ese:"+d);:}
+							;
 /*DEFINICIONES*/
-definition 				::= def_elements def_oper def_func def_constants;
+definition 				::= def_elements def_oper def_func def_constants
+							;
 
-def_elements 			::= ELEMENT EQUAL EXP/*lst_elements*/;
+def_elements 			::= ELEMENT:e EQUAL:equ EXP:ex/*lst_elements*/{: System.out.println("este:"+e);:};
 
 /*lst_elements 			::= element other_elements;
 element 				::= EXP
 other_elements			::=	COMMA element other_elements
 					|*/
 
-def_oper				::= OPERATION EQUAL lst_operations;
+def_oper				::= OPERATION EQUAL lst_operations			
+							;
 
-lst_operations			::= operation_name other_operations_name;
+lst_operations			::= operation_name other_operations_name
+							;
 
 other_operations_name	::= COMMA operation_name other_operations_name
-							| /*Vacío*/;
+							| /*Vacío*/
+							;
 							
-operation_name			::= NAME;
+operation_name			::= NAME
+							;
 
+def_func				::= USES_FUNC EQUAL lst_functions
+							;
 
+lst_functions			::= function_name other_functions
+							;
 
+other_functions			::= COMMA function_name other_functions
+							| /*Vacio*/
+							;
 
+function_name			::= PERMUTE
+							| SUBLIST
+							| CONCAT
+							| DETECT
+							;
 
+def_constants			::= USES_CONSTANTS EQUAL constant;
 
-       
+constant				::= ZERO;
+
+/*Operaciones*/
+operations				::= operation operations
+							| operation
+							;
+
+/*other_operations		::= operation other_operations
+							| Vacío
+							;*/
+							
+operation				::= operation_name rules
+							;
+
+rules					::= defined_rules undefined_rules
+							| /*Vacio*/
+							;
+
+defined_rules			::= rule other_rules
+							;
+
+other_rules				::= rule other_rules
+							| /*Vacío*/
+							;
+							
+rule					::=	CONMUTATIVE
+							| ASOCIATIVE
+							| DISTRIBUTIVE
+							| COMMON_FACTOR
+							| IDENTITY
+							| ZERO
+							;
+
+undefined_rules			::= new_rule other_new_rules
+							;
+
+other_new_rules			::= new_rule other_new_rules
+							| /*Vacío*/
+							;
+
+new_rule				::= PROP_NAME EQUAL rule_created
+							;
+
+/*rule_name				::= PROP_NAME;*/
+
+rule_created			::= ;
+
+/*OPERACIONES COMBINADAS*/
+combined				::= combined_oper other_comb_oper
+							;
+
+other_comb_oper			::= combined_oper other_comb_oper
+							| /*Vacio*/
+							;
+							
+combined_oper			::= combined_oper_name rules
+							;
+
+combined_oper_name		::= COMBINES EQUAL lst_operations
+							;
