@@ -1,33 +1,32 @@
 file: definition operations combined
 
-//DEFINICIONES
+/*DEFINICIONES*/
 definition: def_elements def_oper def_func def_constants
 
 def_elements: TOK_ELEMENT TOK_IGUAL lst_elements
 
 lst_elements: element other_elements
 
-element: TOK_LST
-		| TOK_EXP
+element: TOK_EXP
 
-other_elements: TOK_COMA element other_elements 
-				| //Vacío
+/*other_elements: TOK_COMA element other_elements 
+				| Vacio*/
 
-def_oper: TOK_OPERATION TOK_IGUAL lst_operations
+def_oper: TOK_OPERATIONS TOK_IGUAL lst_operations
 
 lst_operations: operation_name other_operations_name
 
 other_operations_name: TOK_COMA operation_name other_operations_name
-					|//Vacío
+					|/*Vacio*/
 
-operation_name: TOK_OPERACION_NAME
+operation_name: TOK_NOMBRE
 
 def_func:	TOK_FUNC TOK_IGUAL lst_functions
 
 lst_functions: function_name other_functions
 
 other_functions: TOK_COMA function_name others_operations
-					|//Vacío
+					|/*Vacio*/
 
 function_name: TOK_PERMUTE
 				| TOK_SUBLIST
@@ -35,27 +34,24 @@ function_name: TOK_PERMUTE
 				| TOK_DETECT
 				| TOK_IS_FORMAT
 
-//OPERACIONES
+/*Operaciones*/
 
 operations: operation other_operations
 
 other_operations: operation other_operations
-					| //Vacío
+					| /*Vacio*/
 
-operation: name nParams param_type rules
+operation: name rules
 
-name: TOK_NAME TOK_IGUAL operation_name
-
-nParams: TOK_NPARAMS TOK_IGUAL TOK_CONSTANTE
-
-param_type: TOK_PARAM_TYPE TOK_IGUAL element
+name: TOK_OPERATION TOK_IGUAL operation_name
 
 rules: defined_rules undefined_rules
+		| /*Vacio*/
 
 defined_rules: rule other_rules
 
 other_rules: rule other_rules
-			| //Vacío
+			| /*Vacio*/
 
 rule: TOK_CONMUTATIVE
 		| TOK_ASOCIATIVE
@@ -67,19 +63,19 @@ rule: TOK_CONMUTATIVE
 undefined_rules: new_rule other_new_rules
 
 other_new_rules: new_rule other_new_rules
-				| //Vacío
+				| /*Vacio*/
 
 new_rules: rule_name TOK_IGUAL def_rule
 
 rule_name: TOK_RULE_NAME
 
-def_rule: //¿¿??
+def_rule: /*�?*/
 
-//COMBINADAS
+/*Combinadas*/
 combined: combined_oper other_comb_oper
 
 other_comb_oper: combined_oper other_comb_oper
-					| //Vacío
+					| /*Vacio*/
 
 combined_oper: combined_oper_name rules
 
